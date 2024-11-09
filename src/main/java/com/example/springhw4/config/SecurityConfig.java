@@ -1,5 +1,6 @@
 package com.example.springhw4.config;
 
+import com.example.springhw4.jwt.JWTFilter;
 import com.example.springhw4.jwt.JWTUtil;
 import com.example.springhw4.jwt.LoginFilter;
 import org.springframework.context.annotation.Bean;
@@ -58,7 +59,10 @@ public class SecurityConfig {
                         .requestMatchers("/login", "/", "/join").permitAll()
                         .anyRequest().authenticated());
 
-        //AuthenticationManager()와 JWTUtil 인수 전달
+        //JWTFilter 등록
+        http
+                .addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class);
+
         http
                 .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
