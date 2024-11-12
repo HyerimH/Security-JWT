@@ -80,7 +80,7 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/login", "/", "/join").permitAll()
+                        .requestMatchers("/login", "/", "/join","/docs/**","/v3/**").permitAll()
                         .anyRequest().authenticated());
 
         //JWTFilter 등록
